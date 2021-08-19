@@ -14,7 +14,6 @@ Parameters:
     Default: arn:aws:iam::118928031713:role/live-export-job-batch-copy-role
     Description: ARN of the role assumed by the GameAnalytics export service
 
-
 Resources:
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
