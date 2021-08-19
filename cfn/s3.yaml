@@ -8,6 +8,7 @@ Description: >-
 Parameters:
   S3PolicyStackTemplateURL:
     Type: String
+    Default: https://raw.githubusercontent.com/GameAnalytics/data-export-s3-docs/init/cfn/s3-policy.yaml
     Description: URL of the CFN template to provision an access point
   GameAnalyticsExportRoleArn:
     Type: String
