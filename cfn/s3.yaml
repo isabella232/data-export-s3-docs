@@ -1,0 +1,37 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >-
+  Creates S3 bucket and set a required bucket policy for GameAnalytics data
+  export to write the data to the bucket
+
+Parameters:
+  S3PolicyStackTemplateURL:
+    Type: String
+    Description: URL of the CFN template to provision an access point
+  GameAnalyticsExportRoleArn:
+    Type: String
+    Default: arn:aws:iam::118928031713:role/live-export-job-batch-copy-role
+    Description: ARN of the role assumed by the GameAnalytics export service
+
+Resources:
+  S3PolicyStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Ref S3PolicyStackTemplateURL
+      Parameters:
+        BucketName: !Ref S3Bucket
+        GameAnalyticsExportRoleArn: !Ref GameAnalyticsExportRoleArn
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          IgnorePublicAcls: true
+          BlockPublicPolicy: true
+          RestrictPublicBuckets: true
+
+Outputs:
+  BucketName:
+    Value: !GetAtt S3Bucket.Arn
+    Description: Name of the bucket where the data will be exported to

@@ -1,0 +1,33 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >-
+  Set S3 bucket policy required for GameAnalytics data export to write the data
+  to the bucket.
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: Name of a bucket where the data will be exported to
+  GameAnalyticsExportRoleArn:
+    Type: String
+    Default: arn:aws:iam::118928031713:role/live-export-job-batch-copy-role
+    Description: ARN of the role assumed by the GameAnalytics export service
+
+
+Resources:
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref BucketName
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:PutObject'
+              - 's3:PutObjectAcl'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::${BucketName}/*'
+            Principal:
+              AWS: !Ref GameAnalyticsExportRoleArn
