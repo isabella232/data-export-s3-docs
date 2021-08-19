@@ -33,6 +33,6 @@ Resources:
           RestrictPublicBuckets: true
 
 Outputs:
-  BucketName:
+  BucketARN:
     Value: !GetAtt S3Bucket.Arn
-    Description: Name of the bucket where the data will be exported to
+    Description: ARN of the bucket where the data will be exported to
