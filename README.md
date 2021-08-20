@@ -6,7 +6,7 @@ a set of permissions sufficient for the GameAnalytics export service.
 
 ## Overview
 
-GameAnalytics export requires permissions to perform 's3:PutObject' action to the bucket where the data is supposed to be stored. The export is performed under `arn:aws:iam::118928031713:role/live-export-job-batch-copy-role` role, which one could grant the required permissions using the following policy:
+GameAnalytics export requires permissions to perform 's3:PutObject' and 's3:PutObjectAcl' actions to the bucket where the data is supposed to be stored. The export is performed under `arn:aws:iam::118928031713:role/live-export-job-batch-copy-role` role, which one could grant the required permissions using the following policy:
 
 ``` json
 {
