@@ -25,6 +25,9 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
       PublicAccessBlockConfiguration:
           BlockPublicAcls: true
           IgnorePublicAcls: true

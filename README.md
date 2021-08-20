@@ -29,6 +29,10 @@ GameAnalytics export requires permissions to perform 's3:PutObject' action to th
 
 Where `YOUR_BUCKET_NAME` should be replaced with a name of the bucket to which the policy is attached.
 
+Please ensure that the bucket has "Object Ownership" set to `Bucket owner preferred`:
+
+![](./pics/bucket-ownership-preferences.png)
+
 ## Helpers
 
 To help you to provision all the required resources one can use pre-created AWS CloudFormation templates that you can find the [cfn](./cfn) directory.
