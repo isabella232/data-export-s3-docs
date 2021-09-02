@@ -55,7 +55,7 @@ Prerequisites:
    aws cloudformation create-stack --stack-name gameanalytics-data-export \
        --template-url https://<CFN_BUCKET_NAME>.s3.amazonaws.com/gameanalytics/export/cfn/s3.yaml \
        --parameters \
-           ParameterKey=S3PolicyStackTemplateURL,ParameterValue=https://<CFN_BUCKET_NAME>.s3.amazonaws.com/gameanalytics/export/cfn/s3.yaml
+           ParameterKey=S3PolicyStackTemplateURL,ParameterValue=https://<CFN_BUCKET_NAME>.s3.amazonaws.com/gameanalytics/export/cfn/s3-policy.yaml
    ```
 3. Wait until the stack is created
    ```
