@@ -33,6 +33,39 @@ Please ensure that the bucket has "Object Ownership" set to `Bucket owner prefer
 
 ![](./pics/bucket-ownership-preferences.png)
 
+### Encryption
+
+It is highly recommended to setup the destination bucket with a service side encryption enabled. The provided [cfn](./cfn) template ensures that the destination bucket uses `AWS:KMS` encryption by default.
+
+If `AWS:KMS` default encryption is enabled, please make sure to grant GameAnalytics data role enough permissions to be able to use the key to write to the destination bucket:
+
+``` json
+{
+    "Version": "2012-10-17",
+    "Id": "allow-ga-write",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<YOUR AWS ACCOUNT ID>:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow GameAnalytics to write the data",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::118928031713:role/live-export-job-batch-copy-role"
+            },
+            "Action": "kms:GenerateDataKey",
+            "Resource": "*"
+        }
+    ]
+}
+```
+
 ## Helpers
 
 To help you to provision all the required resources one can use pre-created AWS CloudFormation templates that you can find the [cfn](./cfn) directory.
