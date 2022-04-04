@@ -33,6 +33,35 @@ Resources:
           IgnorePublicAcls: true
           BlockPublicPolicy: true
           RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - BucketKeyEnabled: true
+            ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt S3BucketKey.Arn
+              SSEAlgorithm: aws:kms
+  S3BucketKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Used to encrypt GameAnalytics export data
+      Enabled: true
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: allow-ga-write
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+          - Sid: Allow GameAnalytics to write the data
+            Effect: Allow
+            Principal:
+              AWS: !Ref GameAnalyticsExportRoleArn
+            Action:
+              - 'kms:GenerateDataKey'
+            Resource: '*'
 
 Outputs:
   BucketARN:
