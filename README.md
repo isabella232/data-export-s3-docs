@@ -37,7 +37,7 @@ Please ensure that the bucket has "Object Ownership" set to `Bucket owner prefer
 
 It is highly recommended to setup the destination bucket with a service side encryption enabled. The provided [cfn](./cfn) template ensures that the destination bucket uses `AWS:KMS` encryption by default.
 
-If `AWS:KMS` default encryption is enabled, please make sure to grant GameAnalytics data role enough permissions to be able to use the key to write to the destination bucket:
+If `AWS:KMS` default encryption is enabled, please make sure to grant GameAnalytics data role enough permissions to be able to use the key to write to the destination bucket via a [KMS key policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html):
 
 ``` json
 {
